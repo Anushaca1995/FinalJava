@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
-public class FinalApiService {
+public class UserApiService {
     @Autowired
-    FinalApiRepository finalApiRepository;
+    UserApiRepository finalApiRepository;
 
     // CREATE
 
@@ -25,11 +25,25 @@ public class FinalApiService {
         Optional<User> finalApi = finalApiRepository.findById(id);
 
         if (finalApi.isEmpty()) {
-            throw new FinalApiNotFoundException();
+            throw new UserApiNotFoundException();
         }
 
         return finalApi.get();
     }
+    public User getUserByEmail(String email) {
+        return finalApiRepository.getUserByEmail(email);
+    }
+
+    public List<User> getUserBySearch(String search) {
+        search = "%"+search+"%";
+        System.out.println(search);
+        return finalApiRepository.getUserBySearch(search, search, search);
+    }
+
+    public List<User> getUserByDate() {
+        return finalApiRepository.getUserByDate();
+    }
+
 
     public User getRandomUser() {
         return finalApiRepository.getRandomUser();
@@ -53,7 +67,7 @@ public class FinalApiService {
 
     public void updateUser(User finalApi, long id) {
         if (!finalApiRepository.existsById(id)) {
-            throw new FinalApiNotFoundException();
+            throw new UserApiNotFoundException();
         }
 
         finalApi.setId(id);
@@ -65,7 +79,7 @@ public class FinalApiService {
     @Transactional
     public void deleteUserById(long id) {
         if (!finalApiRepository.existsById(id)) {
-            throw new FinalApiNotFoundException();
+            throw new UserApiNotFoundException();
         }
 
         finalApiRepository.deleteUserById(id);

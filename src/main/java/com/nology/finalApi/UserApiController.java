@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class FinalApiController {
+@CrossOrigin
+public class UserApiController {
 
     @Autowired
-    private FinalApiService finalApiService;
+    private UserApiService finalApiService;
 
     @ExceptionHandler
-    public ResponseEntity<String> handleExceptions(FinalApiNotFoundException exception) {
+    public ResponseEntity<String> handleExceptions(UserApiNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
@@ -54,6 +55,24 @@ public class FinalApiController {
     public ResponseEntity<User> getUserById(@PathVariable long id) {
         return ResponseEntity.status(HttpStatus.OK).body(finalApiService.getUserById(id));
     }
+
+    @GetMapping("/user/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email_id) {
+        System.out.println(email_id);
+        return ResponseEntity.status(HttpStatus.OK).body(finalApiService.getUserByEmail(email_id));
+    }
+
+    @GetMapping("/user/search/{search}")
+    public ResponseEntity<List<User>> getUserBySearch(@PathVariable("search") String search) {
+        return ResponseEntity.status(HttpStatus.OK).body(finalApiService.getUserBySearch(search));
+    }
+
+    @GetMapping("/user/book")
+    public ResponseEntity<List<User>> getUserByDate() {
+        return ResponseEntity.status(HttpStatus.OK).body(finalApiService.getUserByDate());
+    }
+
+
 
     // UPDATE
 
