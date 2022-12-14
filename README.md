@@ -2,7 +2,7 @@
 
       ♦     It's a spring boot application to handle API service for EPC app.
 
-      ♦     I have created APIs for create, read, update and delete services.
+      ♦     I have created APIs to create, read, update and delete services.
 
 
 
